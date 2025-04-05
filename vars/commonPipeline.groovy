@@ -35,7 +35,7 @@ def call(Map config, Closure buildStage) {
                     expression { return scanOWASP == "true" }
                 }
                 steps {
-                    dependencyCheck odcInstallation: 'dep-check', additionalArguments: '--scan src/main --exclude helm-charts --exclude pipeline --disableRetireJS --project ${appName}' 
+                    dependencyCheck odcInstallation: 'dep-check', additionalArguments: '--scan ${scanDir} --exclude helm-charts --exclude pipeline --disableRetireJS --project ${appName}' 
                     
                     script {
                         container('aws') {
@@ -142,5 +142,6 @@ def setupAndValidateParameters(Map config) {
     appName = config.appName
     namespace = config.namespace
     scanOWASP = config.scanOWASP
+    scanDir = config.scanDir
     label = config.label ?: 'default'
 }
