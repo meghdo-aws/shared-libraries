@@ -35,8 +35,7 @@ def call(Map config, Closure buildStage) {
                     expression { return scanOWASP == "true" }
                 }
                 steps {
-                    sh "echo ${scanDir}"
-                    dependencyCheck odcInstallation: 'dep-check', additionalArguments: '--scan ${scanDir} --exclude helm-charts --exclude pipeline --disableRetireJS --project ${appName}' 
+                    dependencyCheck odcInstallation: 'dep-check', additionalArguments: "--scan \"${scanDir}\" --exclude helm-charts --exclude pipeline --disableRetireJS --project \"${appName}\""
                     
                     script {
                         container('aws') {
